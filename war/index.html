@@ -13,23 +13,39 @@
     <script src='/_ah/channel/jsapi'></script>
     <script src='/js/jQuery-1.4.4.min.js'></script>
     <script type="text/javascript" language="javascript">
-    var channel = new goog.appengine.Channel('topic');
-   
-	var socket = channel.open();
-	socket.onopen = function () {
-		alert('Socket opened...');
-	};
-	
-	$.ajax({
-		url: '/rest/topics',
-		success: function(resp) {
-			alert(resp);
-		}
-	});
+    	$(document).ready(function(){
+    		$('#send').click(function(){
+    			var obj = {};
+    			obj.msg = 'MESSAGE TESTING!';
+    			$.ajax({
+    				type: "POST",
+    				url: "/rest/topics",
+    				data: JSON.stringify(obj),
+    				contentType:"application/json"
+    			});
+    		})
+    	});
+	    var channel = new goog.appengine.Channel('topics');
+	   
+		var socket = channel.open();
+		socket.onopen = function () {
+			alert('Socket opened...');
+		};
+		socket.onmessage = function() {
+			alert("GOT A MESSAGE FROM THE SERVER!");
+		};
+		
+		$.getJSON({
+			url: '/rest/topics',
+			success: function(resp) {
+				alert(resp);
+			}
+		});
     </script>
   </head>
 
   <body>
-
+		<input type="text" value="banana" />
+		<input id="send" type="button" value="send" />
   </body>
 </html>
