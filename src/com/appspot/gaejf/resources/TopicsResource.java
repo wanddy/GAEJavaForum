@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
+import com.google.appengine.api.channel.ChannelService;
+import com.google.appengine.api.channel.ChannelServiceFactory;
+
 @Path("/topics")
 public class TopicsResource {
 	
@@ -23,6 +26,13 @@ public class TopicsResource {
 	
 	@Context
 	Request request;
+	
+	private static final ChannelService channelService;
+	
+	static {
+		channelService = ChannelServiceFactory.getChannelService();
+		channelService.createChannel("topics");
+	}
 
 	@Path("{topicId}")
 	public TopicResource topicResource(@PathParam("{topicId}") String topicId) {

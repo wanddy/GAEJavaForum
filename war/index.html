@@ -10,18 +10,26 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Hello App Engine</title>
+    <script src='/_ah/channel/jsapi'></script>
+    <script src='/js/jQuery-1.4.4.min.js'></script>
+    <script type="text/javascript" language="javascript">
+    var channel = new goog.appengine.Channel('topic');
+   
+	var socket = channel.open();
+	socket.onopen = function () {
+		alert('Socket opened...');
+	};
+	
+	$.ajax({
+		url: '/rest/topics',
+		success: function(resp) {
+			alert(resp);
+		}
+	});
+    </script>
   </head>
 
   <body>
-    <h1>Hello App Engine!</h1>
-	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-      <tr>
-        <td><a href="dnforum">Dnforum</a></td>
-      </tr>
-    </table>
+
   </body>
 </html>
