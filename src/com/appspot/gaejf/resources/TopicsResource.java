@@ -1,6 +1,7 @@
 package com.appspot.gaejf.resources;
 
 import java.net.URI;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ws.rs.Consumes;
@@ -57,11 +58,11 @@ public class TopicsResource {
 		URI uri = ub.build("");
 
 		log.severe("POST WAS CALLED AND LOGGED!");
-		String userKey = "fakemeoutkey";
-		cache.getTokens();
-		
-		channelService.sendMessage(new ChannelMessage(userKey, "MESSAGE"));
-		
+
+		Set <String> activeUsers = cache.getActiveUsers();
+		for (String userKey : activeUsers) {
+			channelService.sendMessage(new ChannelMessage(userKey, "MESSAGE"));
+		}
 		return Response.created(uri).build();
 	}
 }

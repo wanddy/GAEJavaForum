@@ -2,6 +2,7 @@ package com.appspot.gaejf.resources;
 
 import java.util.logging.Logger;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -28,10 +29,16 @@ public class ChannelResource {
 	public Response getChannel(){
 		String userKey = "fakemeoutkey";
 		String token = channelService.createChannel(userKey);
-		log.severe("STORING TOKEN: " + token);
-		//cache.putInCache(userKey);
-		log.severe("STORED TOKEN: " + token);
+		cache.putInCache(userKey);
 		
 		return Response.ok("{\"token\":\"" + token + "\"}").build();
+	}
+	
+	@DELETE
+	public Response deleteChannel(){
+		String userKey = "fakemeoutkey";
+		cache.deleteFromCache(userKey);
+		
+		return Response.ok().build();
 	}
 }
