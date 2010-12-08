@@ -1,5 +1,6 @@
 package com.appspot.gaejf.resources;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.DELETE;
@@ -30,7 +31,7 @@ public class ChannelResource {
 		String userKey = "fakemeoutkey";
 		String token = channelService.createChannel(userKey);
 		cache.putInCache(userKey);
-		
+		log.log(Level.FINE, "CREATED NEW TOKEN AND CHANNEL!");
 		return Response.ok("{\"token\":\"" + token + "\"}").build();
 	}
 	
