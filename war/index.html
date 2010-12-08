@@ -23,24 +23,24 @@
     				data: JSON.stringify(obj),
     				contentType:"application/json"
     			});
-    		})
+    		});
+    		
+    		$.ajax({
+    			url: '/rest/channel',
+    			dataType: 'json',
+    			success: function(data, status, req) {
+    			    var channel = new goog.appengine.Channel(data.token);
+    				   
+    				var socket = channel.open();
+    				socket.onopen = function () {
+    					alert('Socket opened...');
+    				};
+    				socket.onmessage = function() {
+    					alert("GOT A MESSAGE FROM THE SERVER!");
+    				};
+    			}
+    		});
     	});
-	    var channel = new goog.appengine.Channel('topics');
-	   
-		var socket = channel.open();
-		socket.onopen = function () {
-			alert('Socket opened...');
-		};
-		socket.onmessage = function() {
-			alert("GOT A MESSAGE FROM THE SERVER!");
-		};
-		
-		$.getJSON({
-			url: '/rest/topics',
-			success: function(resp) {
-				alert(resp);
-			}
-		});
     </script>
   </head>
 
