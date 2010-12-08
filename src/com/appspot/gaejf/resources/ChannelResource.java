@@ -29,7 +29,7 @@ public class ChannelResource {
 		String userKey = "fakemeoutkey";
 		String token = channelService.createChannel(userKey);
 		log.severe("STORING TOKEN: " + token);
-		cache.putInCache(userKey, );
+		//cache.putInCache(userKey);
 		log.severe("STORED TOKEN: " + token);
 		
 		return Response.ok("{\"token\":\"" + token + "\"}").build();
