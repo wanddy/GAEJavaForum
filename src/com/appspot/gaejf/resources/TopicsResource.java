@@ -52,7 +52,7 @@ public class TopicsResource {
 	}
 	
 	@POST
-	//@Consumes (MediaType.APPLICATION_JSON)
+	@Consumes (MediaType.APPLICATION_JSON)
 	public Response createTopic() {
 		UriBuilder ub = uriInfo.getAbsolutePathBuilder();
 		URI uri = ub.build("");
